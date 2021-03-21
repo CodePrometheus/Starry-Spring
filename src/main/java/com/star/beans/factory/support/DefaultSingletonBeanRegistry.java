@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * SingletonBeanRegistry实现类
+ *
  * @Author: zzStar
  * @Date: 03-20-2021 13:41
  */

@@ -3,7 +3,7 @@ package com.star.beans.factory.config;
 import com.star.util.Nullable;
 
 /**
- * 单例Bean的注册中心
+ * 单例Bean的注册中心 顶级接口
  *
  * @Author: zzStar
  * @Date: 03-20-2021 13:32
