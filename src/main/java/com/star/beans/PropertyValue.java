@@ -11,7 +11,7 @@ public class PropertyValue {
 
     private final String name;
 
-    private final String value;
+    private final Object value;
 
     public PropertyValue(String name, String value) {
         this.name = name;
@@ -22,7 +22,7 @@ public class PropertyValue {
         return name;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
