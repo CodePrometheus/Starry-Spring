@@ -11,37 +11,22 @@ import java.net.URL;
  * @Author: zzStar
  * @Date: 03-22-2021 22:41
  */
-public class ClassPathResource extends AbstractResource {
+public class ClassPathResource implements Resource {
 
     private final String path;
 
-    private ClassLoader classLoader;
-
     public ClassPathResource(String path) {
         this.path = path;
-        this.classLoader = ClassPathResource.class.getClassLoader();
-    }
-
-    public String getPath() {
-        return path;
     }
 
     @Override
     public InputStream getInputStream() throws IOException {
-        InputStream resourceAsStream = this.classLoader.getResourceAsStream(this.path);
+        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(this.path);
         if (resourceAsStream == null) {
-            throw new FileNotFoundException("resource cannot be opened because it does not exist");
+            throw new FileNotFoundException(this.path + " cannot be opened because it does not exist");
         }
         return resourceAsStream;
     }
 
-    @Override
-    public URL getURL() throws IOException {
-        URL url = this.classLoader.getResource(this.path);
-        if (url == null) {
-            throw new FileNotFoundException("resource cannot be resolved to URL because it does not exist");
-        }
-        return url;
-    }
 
 }
