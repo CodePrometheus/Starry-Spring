@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.star.beans.BeansException;
 import com.star.beans.PropertyValue;
 import com.star.beans.factory.config.BeanDefinition;
+import com.star.beans.factory.config.BeanReference;
 
 /**
  * 提供bean的创建 (有construct方法), 属性注值, 绑定 (包括自动绑定)和初始化.
@@ -70,8 +71,15 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 String name = propertyValue.getName();
                 Object value = propertyValue.getValue();
 
+                if (value instanceof BeanReference) {
+                    // A依赖B，先实例化B
+                    BeanReference beanReference = (BeanReference) value;
+                    value = getBean(beanReference.getBeanName());
+                }
+
                 // 通过反射为Bean设置属性
                 BeanUtil.setFieldValue(bean, name, value);
+
 
             }
         } catch (Exception e) {
