@@ -80,7 +80,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 // 通过反射为Bean设置属性
                 BeanUtil.setFieldValue(bean, name, value);
 
-
             }
         } catch (Exception e) {
             throw new BeansException("Error setting property values for bean: " + beanName, e);

@@ -7,6 +7,7 @@ import com.star.core.io.Resource;
 import com.star.core.io.UrlResource;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
