@@ -27,10 +27,6 @@ public class DefaultResourceLoader implements ResourceLoader {
                 return new UrlResource(url);
             } catch (MalformedURLException e) {
                 // 当成文件系统下的资源处理
-                String filePath = location;
-                if (location.startsWith("/")) {
-                    filePath = location.substring(1);
-                }
                 return new FileSystemResource(location);
             }
         }

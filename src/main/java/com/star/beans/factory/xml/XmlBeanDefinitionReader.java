@@ -14,6 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -37,6 +38,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         super(registry);
     }
 
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
+        super(registry, resourceLoader);
+    }
+
     @Override
     public void loadBeanDefinitions(Resource resource) throws BeansException {
         try {
@@ -47,7 +52,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             } finally {
                 is.close();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new BeansException("IOException parsing XML document from " + resource, e);
         }
     }
@@ -116,6 +121,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                                 String valueAttr = property.getAttribute(VALUE_ATTRIBUTE);
                                 String refAttr = property.getAttribute(REF_ATTRIBUTE);
 
+                                if (StrUtil.isEmpty(nameAttr)) {
+                                    throw new BeansException("The name attribute cannot be null or empty");
+                                }
+
                                 Object value = valueAttr;
                                 // 处理Bean引用
                                 if (StrUtil.isNotEmpty(refAttr)) {
@@ -125,6 +134,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                                 definition.getPropertyValues().addPropertyValue(propertyValue);
                             }
                         }
+                    }
+                    if (getRegistry().containsBeanDefinition(beanName)) {
+                        // beanName不能重名
+                        throw new BeansException("Duplicate beanName[" + beanName + "] is not allowed");
                     }
                     // 完成注册Bean
                     getRegistry().registerBeanDefinition(beanName, definition);

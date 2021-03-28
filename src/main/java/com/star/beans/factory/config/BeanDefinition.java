@@ -14,9 +14,6 @@ import com.star.beans.PropertyValues;
  */
 public class BeanDefinition {
 
-    /**
-     * 先简化为class类型
-     */
     private Class beanClass;
 
     private PropertyValues propertyValues;
