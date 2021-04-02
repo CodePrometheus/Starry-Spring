@@ -14,5 +14,10 @@
         <property name="tsingTao" value="lao"/>
     </bean>
 
+    <!-- xml配Bean   -->
+    <bean class="com.star.ioc.common.CustomBeanFactoryPostProcessor"/>
+    <bean class="com.star.ioc.common.CustomerBeanPostProcessor"/>
+
+
 
 </beans>

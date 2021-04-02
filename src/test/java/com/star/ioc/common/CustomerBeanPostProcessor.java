@@ -22,7 +22,7 @@ public class CustomerBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("CustomerBeanPostProcessor#postProcessAfterInitialization");
+        System.out.println("CustomerBeanPostProcessor#postProcessAfterInitialization, beanName: " + beanName);
         return bean;
     }
 }
