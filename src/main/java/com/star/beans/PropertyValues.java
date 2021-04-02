@@ -14,7 +14,15 @@ public class PropertyValues {
     private final List<PropertyValue> propertyValueList = new ArrayList<>();
 
     public void addPropertyValue(PropertyValue propertyValue) {
-        propertyValueList.add(propertyValue);
+        for (int i = 0; i < this.propertyValueList.size(); i++) {
+            PropertyValue currentValue = this.propertyValueList.get(i);
+            if (currentValue.getName().equals(propertyValue.getName())) {
+                // 覆盖
+                this.propertyValueList.set(i, propertyValue);
+                return;
+            }
+        }
+        this.propertyValueList.add(propertyValue);
     }
 
     public PropertyValue getPropertyValue(String propertyName) {

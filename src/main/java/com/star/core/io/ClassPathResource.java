@@ -3,7 +3,6 @@ package com.star.core.io;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 /**
  * 类路径下的资源

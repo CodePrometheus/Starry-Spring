@@ -1,17 +1,23 @@
 package com.star.beans.factory.support;
 
 import com.star.beans.BeansException;
-import com.star.beans.factory.BeanFactory;
 import com.star.beans.factory.config.BeanDefinition;
+import com.star.beans.factory.config.BeanPostProcessor;
+import com.star.beans.factory.config.ConfigurableBeanFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 继承SingletonBeanRegistry的实现类DefaultSingletonBeanRegistry
- * 同时实现BeanFactory接口
+ * 同时实现BeanFactory,ConfigurableBeanFactory接口
  *
  * @Author: zzStar
  * @Date: 03-20-2021 13:30
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
 
     /**
@@ -52,4 +58,19 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      */
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
 
+    /**
+     * 注册
+     *
+     * @param beanPostProcessor
+     */
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        // 已经存在Bean则覆盖
+        this.beanPostProcessors.remove(beanPostProcessor);
+        this.beanPostProcessors.add(beanPostProcessor);
+    }
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
+    }
 }
